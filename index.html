@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>I Love You, Sweetheart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 20px; /* Adjusted for mobile */
+            color: #ff69b4;
+        }
+        button {
+            padding: 10px 15px; /* Adjusted for mobile */
+            font-size: 16px; /* Adjusted for mobile */
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff85c1;
+        }
+        input {
+            padding: 8px; /* Adjusted for mobile */
+            font-size: 16px; /* Adjusted for mobile */
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .heart {
+            position: fixed;
+            width: 15px; /* Adjusted for mobile */
+            height: 15px; /* Adjusted for mobile */
+            background-color: #ff69b4;
+            transform: rotate(45deg);
+            animation: fall 4s infinite linear;
+            border-radius: 50% 50% 0 0;
+            z-index: 1;
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 15px; /* Adjusted for mobile */
+            height: 15px; /* Adjusted for mobile */
+            background-color: #ff69b4;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -7px; /* Adjusted for mobile */
+            left: 0;
+        }
+        .heart::after {
+            top: 0;
+            left: -7px; /* Adjusted for mobile */
+        }
+        @keyframes fall {
+            0% {
+                top: -50px;
+                opacity: 1;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+        .character {
+            position: fixed;
+            width: 40px; /* Adjusted for mobile */
+            height: 40px; /* Adjusted for mobile */
+            transform: translate(-50%, -50%);
+            animation: pop 0.5s ease-in-out forwards;
+            z-index: 2;
+        }
+        @keyframes pop {
+            0% {
+                transform: scale(0) translate(-50%, -50%);
+            }
+            100% {
+                transform: scale(1) translate(-50%, -50%);
+            }
+        }
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: #f2f2f2;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sweetheart, CHOOSE any number bigger than your love for me. If I propose you those many times then it means I love you more!!</h1>
+    <input type="number" id="quantity" placeholder="Enter a number" />
+    <button onclick="printMessage()">Print</button>
+    <div id="output"></div>
+
+    <footer>
+        This website is made by Aryan
+    </footer>
+
+    <script>
+        function printMessage() {
+            const quantity = document.getElementById('quantity').value;
+            const outputDiv = document.getElementById('output');
+            const message = "I Love You, Nat. I wanna 4 Q";
+            outputDiv.innerHTML = ''; // Clear previous messages
+            
+            for (let i = 0; i < quantity; i++) {
+                outputDiv.innerHTML += `<p>${message}</p>`;
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        function createCharacter(x, y) {
+            const images = [
+               'https://w7.pngwing.com/pngs/575/35/png-transparent-hello-kitty-holding-gray-camera-hello-kitty-online-hello-kitty-birthday-logo-cartoon-desktop-wallpaper-thumbnail.png',
+                'https://w7.pngwing.com/pngs/787/162/png-transparent-hello-kitty-hello-kitty-cartoon-desktop-wallpaper-character-thumbnail.png',
+                'https://w7.pngwing.com/pngs/657/55/png-transparent-hello-kitty-illustration-hello-kitty-online-sanrio-hello-kitty-poster-sticker-flower-thumbnail.png',
+                'https://w7.pngwing.com/pngs/939/32/png-transparent-hello-kitty-text-overlay-hello-kitty-font-hello-kitty-purple-text-logo-thumbnail.png',
+                'https://w7.pngwing.com/pngs/897/861/png-transparent-hello-kitty-holding-strawberry-hello-kitty-paper-sticker-decal-hello-love-miscellaneous-heart-thumbnail.png',
+                'https://w7.pngwing.com/pngs/555/692/png-transparent-hello-kitty-holding-puppet-illustration-hello-kitty-birthday-coloring-book-hello-kitty-holidays-balloon-party-thumbnail.png'
+            ];
+
+            const imageUrl = images[Math.floor(Math.random() * images.length)];
+            const character = document.createElement('img');
+            character.src = imageUrl;
+            character.className = 'character';
+            character.style.left = x + 'px';
+            character.style.top = y + 'px';
+            document.body.appendChild(character);
+
+            setTimeout(() => {
+                character.remove();
+            }, 1000); // Character disappears after 1 second
+        }
+
+        document.addEventListener('click', function(event) {
+            createCharacter(event.clientX, event.clientY);
+        });
+
+        setInterval(createHeart, 300);
+    </script>
+
+</body>
+</html>
